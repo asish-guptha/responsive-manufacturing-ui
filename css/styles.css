@@ -1,0 +1,2132 @@
+:root {
+  --bg-color: #F8F9FA;
+  --primary-button: #2B3990;
+  --text-main: #0D0D0D;
+  --text-heading: #111827;
+  --white: #FFFFFF;
+  --border-color: #E5E7EB;
+  --font-family: 'Inter', sans-serif;
+  --container-max: 1200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  background-image: url('../assets/images/Noise & Texture.png');
+  background-repeat: repeat;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+section {
+  padding: 100px;
+  box-sizing: border-box;
+}
+
+/* 3. Screen Size: 1200px */
+@media (max-width: 1200px) {
+  section {
+    padding: 80px;
+  }
+}
+
+/* 4. Screen Size: 1080px */
+@media (max-width: 1080px) {
+  section {
+    padding: 80px 60px;
+  }
+}
+
+/* 5. Screen Size: 800px (Tablet/Large Mobile) */
+@media (max-width: 800px) {
+  section {
+    padding: 80px 48px;
+  }
+}
+
+/* 6. Screen Size: 360px (Standard Mobile bounds) */
+@media (max-width: 480px) {
+  section {
+    padding: 48px 16px;
+  }
+}
+
+/* HEADER */
+.main-header {
+  background-color: var(--white);
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: var(--text-main);
+  margin: 0 20px;
+  font-weight: 500;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid var(--text-main);
+  margin-left: 5px;
+  vertical-align: middle;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-button);
+  color: var(--white);
+  border: none;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-heading);
+  border: 1px solid var(--border-color);
+}
+
+/* BREADCRUMBS */
+.breadcrumbs {
+  margin: 20px 0;
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.breadcrumbs .active {
+  color: var(--text-heading);
+  font-weight: 500;
+}
+
+/* LAYOUT */
+.product-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+
+  /* The Fix: Wipes out the 100px global section padding */
+  padding: 0 !important;
+
+  /* Keeps it just 20px below the breadcrumbs */
+  margin-top: 20px;
+}
+
+/* CAROUSEL & ADVANCED ZOOM */
+.carousel-container {
+  position: relative;
+}
+
+.main-image-wrapper {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 570px;
+  /* Strict max width */
+  aspect-ratio: 1 / 1;
+  /* Forces the 570x570 square ratio */
+}
+
+.main-carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* The tracking lens */
+.zoom-lens {
+  position: absolute;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  width: 150px;
+  /* Lens width */
+  height: 150px;
+  /* Lens height */
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: crosshair;
+  display: none;
+}
+
+.zoom-lens::after {
+  content: "🔍";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+/* The floating result box */
+.zoom-result {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 50px);
+  /* Pushes it exactly over the right text column */
+  width: 300px;
+  /* Fixed decreased width (from 100%) */
+  height: 300px;
+  /* Fixed decreased vertical size (from 100%) to create a smaller square box matching design */
+  border-radius: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  display: none;
+  /* Hidden by default */
+  z-index: 100;
+  background-repeat: no-repeat;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.left-arrow {
+  left: 40px;
+  /* Increased from 15px to sit cleanly inside image */
+}
+
+.right-arrow {
+  right: 40px;
+  /* Increased from 15px to sit cleanly inside image */
+}
+
+/* THUMBNAILS */
+.thumbnail-row {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+
+.thumb.active {
+  border-color: var(--primary-button);
+}
+
+/* PRODUCT DETAILS */
+.product-title {
+  color: var(--text-heading);
+  font-size: 42px;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.badges {
+  display: flex;
+  gap: 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.badge img {
+  height: 14px;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 20px 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.check-circle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: var(--primary-button);
+  border-radius: 50%;
+  color: var(--white);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* PRICING CARD & YELLOW/GRAY BADGES */
+.pricing-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 30px 0;
+}
+
+.price-label {
+  font-size: 14px;
+  color: #6B7280;
+}
+
+.price-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text-heading);
+  margin-bottom: 20px;
+}
+
+.shipping-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.ship-badge.warning {
+  background-color: #FEF3C7;
+  /* Yellow background */
+  color: #92400E;
+  /* Dark yellow/brown text */
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.cert-badge {
+  background-color: #F3F4F6;
+  /* Gray background */
+  color: #374151;
+  /* Dark gray text */
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* BRANDS */
+.trusted-brands {
+  text-align: center;
+
+  /* Wipes out the 100px global section padding */
+  padding: 0 !important;
+
+  /* Precisely controls the gap between the buttons and the logos */
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.trusted-brands p {
+  color: #6B7280;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.brand-logos {
+  display: flex;
+  justify-content: space-between;
+  /* Spreads them perfectly across the 1240px */
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.brand-logos img {
+  width: 121.85px;
+  height: 32.11px;
+  object-fit: contain;
+  opacity: 0.7;
+}
+
+/* --- TECHNICAL SPECIFICATIONS --- */
+.technical-specs {
+  background-color: var(--text-heading);
+  /* The #111827 dark blue we defined earlier */
+  color: var(--white);
+  padding: 80px 0;
+  margin-top: 40px;
+}
+
+.specs-container {
+  max-width: 900px;
+  /* Making it a bit narrower than the full container for better readability */
+}
+
+.specs-header {
+  margin-bottom: 40px;
+}
+
+.specs-header h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.specs-header p {
+  color: #9CA3AF;
+  /* Light gray text */
+  font-size: 16px;
+  max-width: 600px;
+}
+
+/* Table Styles */
+.table-wrapper {
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Slight white overlay for the box */
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  /* Keeps the rounded corners intact */
+  margin-bottom: 40px;
+}
+
+.specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.specs-table th,
+.specs-table td {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.specs-table th {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.05);
+  /* Slightly darker header */
+}
+
+.specs-table td {
+  font-size: 14px;
+  color: #E5E7EB;
+}
+
+.specs-table tr:last-child td {
+  border-bottom: none;
+  /* Removes the border from the very last row */
+}
+
+/* Download Button Specifics */
+.download-action {
+  text-align: center;
+}
+
+.btn-outline-light {
+  background-color: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--white);
+}
+
+/* --- FEATURES / BUILT TO LAST SECTION --- */
+.features-section {
+  padding: 80px 0;
+  /* Background relies on the body's noise texture inherited naturally */
+}
+
+/* Update these rules in your css/styles.css */
+
+.features-header {
+  text-align: left;
+  /* Changed from center to left */
+  margin-bottom: 50px;
+}
+
+.features-header h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.features-header p {
+  color: #6B7280;
+  max-width: 650px;
+  margin: 0;
+  /* Removed the 'auto' margin so it anchors to the left */
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* 3-Column CSS Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.feature-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Subtle hover interaction */
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.feature-icon {
+  color: var(--primary-button);
+  /* Uses the dark blue for the SVG lines */
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #6B7280;
+  line-height: 1.6;
+}
+
+.features-cta {
+  text-align: center;
+}
+
+/* --- FAQ SECTION --- */
+.faq-section {
+  padding: 60px 0 100px 0;
+}
+
+.faq-container {
+  max-width: var(--container-max);
+  /* Resets it to the full 1200px width */
+}
+
+.faq-title {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 40px;
+}
+
+.text-blue {
+  color: var(--primary-button);
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 50px;
+}
+
+.faq-item {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 20px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-heading);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family);
+}
+
+.faq-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #F3F4F6;
+  color: #6B7280;
+  transition: all 0.3s ease;
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Accordion Active State */
+.faq-item.active {
+  border-color: #E5E7EB;
+  /* Keeps light border */
+}
+
+.faq-item.active .faq-icon {
+  background-color: #EEF2FF;
+  /* Light blue/purple bg */
+  color: var(--primary-button);
+  /* Blue arrow */
+}
+
+.faq-item.active .arrow-icon {
+  transform: rotate(180deg);
+  /* Flips arrow up */
+}
+
+/* Smooth Accordion Animation using Grid */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+
+.faq-item.active .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
+}
+
+.faq-answer-inner p {
+  padding: 0 24px 24px 24px;
+  color: #6B7280;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* --- CATALOGUE CTA BOX --- */
+.catalogue-box {
+  background-color: #F9FAFB;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  min-height: 132px;
+  /* Enforces your exact Figma height */
+}
+
+.catalogue-text h3 {
+  font-size: 20px;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.catalogue-text p {
+  color: #6B7280;
+  font-size: 15px;
+  margin: 0;
+}
+
+.catalogue-form {
+  display: flex;
+  flex-direction: column;
+  /* This stacks the elements top-to-bottom */
+  gap: 12px;
+  flex: 1;
+  max-width: 400px;
+  /* Keeps the form neatly sized on the right side */
+}
+
+.catalogue-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: var(--font-family);
+  font-size: 15px;
+  outline: none;
+}
+
+.catalogue-input:focus {
+  border-color: var(--primary-button);
+}
+
+.catalogue-btn {
+  width: 100%;
+  /* Makes the button exactly as wide as the input field */
+  white-space: nowrap;
+}
+
+/* --- APPLICATIONS CAROUSEL SECTION --- */
+.applications-section {
+  padding: 60px 0 100px 0;
+  overflow: hidden;
+}
+
+.applications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: nowrap;
+  gap: 40px;
+}
+
+.app-header-text {
+  flex: 1;
+  max-width: 700px;
+}
+
+.app-header-text h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.app-header-text p {
+  color: #6B7280;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.app-nav-buttons {
+  flex-shrink: 0;
+  display: flex;
+  gap: 15px;
+}
+
+.app-nav-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  color: var(--text-heading);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.app-nav-btn:hover {
+  background-color: var(--primary-button);
+  color: var(--white);
+  border-color: var(--primary-button);
+}
+
+/* --- THE INFINITE LOOP TRACK & WRAPPER --- */
+.applications-track-wrapper {
+  width: 100vw;
+  /* Forces the wrapper to span the entire monitor */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Breaks out of ANY constrained containers */
+  overflow: hidden;
+}
+
+.applications-track {
+  display: flex;
+  gap: 16px;
+  /* Exactly from Figma */
+  width: max-content;
+
+  /* Mobile/Tablet Fallback: 20px alignment minus 314px (One card + one gap) */
+  margin-left: -294px;
+}
+
+/* --- THE CARDS --- */
+.app-card {
+  flex: 0 0 420px;
+  /* Changed from 298px to 420px */
+  height: 420px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.app-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+}
+
+.app-card-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.app-card-overlay h3 {
+  color: var(--white);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.app-card-overlay p {
+  color: #D1D5DB;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (min-width: 1200px) {
+  .applications-track {
+    margin-left: calc(((100vw - 1200px) / 2) + 20px - 436px);
+  }
+}
+
+/* --- MANUFACTURING PROCESS SECTION --- */
+.process-section {
+  padding: 80px 0;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.process-header h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.process-header p {
+  color: #6B7280;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* The Main White Card */
+.process-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+/* The Pill Tabs */
+.process-tabs {
+  display: flex;
+  gap: 30px;
+  /* Increased gap to make room for the connecting lines */
+  margin-bottom: 40px;
+  padding-bottom: 10px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 1;
+  /* Keeps the tabs above the connecting lines */
+}
+
+.process-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
+  /* Solid background hides lines underneath */
+  color: var(--text-main);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  position: relative;
+  /* Crucial for anchoring the connecting line */
+}
+
+.tab-btn:not(:last-child) {
+  position: relative;
+}
+
+.tab-btn:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -30px;
+  /* Pulls the line exactly into the 30px gap we created above */
+  width: 30px;
+  /* Makes the line exactly as wide as the gap */
+  height: 2px;
+  /* Thickness of the flowchart line */
+  background-color: var(--border-color);
+  transform: translateY(-50%);
+  /* Centers it perfectly vertically */
+  z-index: -1;
+  /* Pushes the line behind the buttons */
+}
+
+.tab-btn:hover {
+  border-color: #9CA3AF;
+}
+
+.tab-btn.active {
+  background-color: var(--primary-button);
+  color: var(--white);
+  border-color: var(--primary-button);
+}
+
+/* The Content Grid */
+.process-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.process-text h3 {
+  font-size: 28px;
+  color: var(--text-heading);
+  margin-bottom: 20px;
+}
+
+.process-text p {
+  color: #6B7280;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.process-image-wrapper {
+  width: 100%;
+  max-width: 560px;
+  /* Limits size to Figma spec */
+  aspect-ratio: 16 / 9;
+  /* Matches the 560x315 ratio */
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 auto;
+  /* Centers it if the grid gets wider */
+}
+
+.process-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
+  /* Bypasses the wrapper bug completely */
+}
+
+/* --- TESTIMONIALS SECTION --- */
+.testimonials-section {
+  padding: 80px 0;
+  overflow: hidden;
+  /* Contains the full-width bleed */
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.testimonials-header h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.testimonials-header p {
+  color: #6B7280;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* The Marquee Wrapper */
+.testimonials-track-wrapper {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  padding: 20px 0;
+  /* Gives room for card drop shadows */
+}
+
+/* The Animated Track */
+.testimonials-track {
+  display: flex;
+  gap: 24px;
+  width: max-content;
+  /* 40s determines the speed. linear keeps it smooth. infinite loops it. */
+  animation: marquee 40s linear infinite;
+}
+
+/* Pause the scrolling when a user hovers over the cards to read them */
+.testimonials-track:hover {
+  animation-play-state: paused;
+}
+
+/* The CSS Animation Magic */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  /* Translate exactly 50% of the total width + half the gap size */
+  100% {
+    transform: translateX(calc(-50% - 12px));
+  }
+}
+
+/* The Cards */
+.testimonial-card {
+  flex: 0 0 380px;
+  /* Fixed width for the cards */
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quote-icon {
+  font-size: 60px;
+  color: var(--primary-button);
+  /* The dark blue */
+  font-family: Georgia, serif;
+  line-height: 0.5;
+  margin-bottom: 20px;
+}
+
+.testimonial-card h3 {
+  font-size: 18px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.quote-text {
+  color: #6B7280;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  flex-grow: 1;
+  /* Pushes the author info to the bottom if text length varies */
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* The gray circle placeholder */
+.author-avatar {
+  width: 45px;
+  height: 45px;
+  background-color: #E5E7EB;
+  border-radius: 50%;
+}
+
+.author-info h4 {
+  font-size: 15px;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+}
+
+.author-info span {
+  font-size: 13px;
+  color: #9CA3AF;
+}
+
+/* --- PORTFOLIO SECTION --- */
+.portfolio-section {
+  padding: 80px 0;
+}
+
+.portfolio-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.portfolio-header h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.portfolio-header p {
+  color: #6B7280;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* 3-Column Grid */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.portfolio-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.portfolio-card h3 {
+  font-size: 22px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.portfolio-card p {
+  color: #6B7280;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  flex-grow: 1;
+  /* Pushes the image and button to the bottom */
+}
+
+.portfolio-img-wrapper {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  /* Replaces the hardcoded height, locking in the 349x174 ratio */
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.portfolio-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+  /* Bypasses the wrapper bug completely */
+}
+
+/* Specific Light Button for these cards */
+.btn-light-outline {
+  background-color: #F9FAFB;
+  color: var(--primary-button);
+  border: 1px solid #E5E7EB;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.btn-light-outline:hover {
+  background-color: #F3F4F6;
+  border-color: #D1D5DB;
+}
+
+.full-width {
+  width: 100%;
+  display: block;
+}
+
+/* --- HELP CTA BANNER --- */
+.help-cta-banner {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  min-height: 107px;
+  /* Enforces your exact Figma height */
+}
+
+.help-cta-text h3 {
+  font-size: 24px;
+  color: var(--text-heading);
+  margin-bottom: 8px;
+}
+
+.help-cta-text .text-blue {
+  color: var(--primary-button);
+}
+
+.help-cta-text p {
+  color: #6B7280;
+  font-size: 15px;
+  margin: 0;
+}
+
+.cta-expert-btn {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* --- RESOURCES & DOWNLOADS SECTION --- */
+.resources-section {
+  padding: 80px 0;
+}
+
+.resources-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.resources-header h2 {
+  font-size: 36px;
+  color: var(--text-heading);
+  margin-bottom: 15px;
+}
+
+.resources-header p {
+  color: #6B7280;
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* The White Card Container */
+.resources-list-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 10px 40px;
+  /* Padding on left/right, minimal on top/bottom */
+  max-width: 1000px;
+  /* Keeps the list from stretching too wide on massive screens */
+  margin: 0 auto;
+}
+
+/* Individual Rows */
+.resource-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid #E5E7EB;
+  /* The faint separator line */
+}
+
+/* Removes the separator line from the very last item */
+.resource-item:last-child {
+  border-bottom: none;
+}
+
+.resource-name {
+  color: var(--text-heading);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* The Download Link */
+.download-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-button);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.download-link:hover {
+  opacity: 0.8;
+}
+
+/* --- CONTACT CTA SECTION --- */
+.contact-cta-section {
+  padding: 60px 0 100px 0;
+}
+
+.contact-cta-box {
+  background-color: #20316A;
+  border-radius: 24px;
+  padding: 60px;
+
+  display: grid;
+  /* THE FIX: Gives the text side more width so it matches Figma */
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Left Side: Text Content */
+.contact-cta-content h2 {
+  font-size: 40px;
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.cta-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  /* Slightly faded white */
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.cta-divider {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  /* Faint translucent line */
+  margin-bottom: 30px;
+}
+
+.cta-contact-info {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.cta-contact-info strong,
+.cta-contact-info a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.cta-contact-info a:hover {
+  text-decoration: underline;
+}
+
+/* Right Side: The Form Card */
+.contact-cta-form-wrapper {
+  background-color: var(--white);
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.contact-cta-form-wrapper h3 {
+  font-size: 18px;
+  color: var(--text-heading);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.contact-cta-form input[type="text"],
+.contact-cta-form input[type="email"],
+.contact-cta-form input[type="tel"] {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--text-main);
+  font-family: var(--font-family);
+  transition: border-color 0.3s ease;
+}
+
+.contact-cta-form input::placeholder {
+  color: #9CA3AF;
+}
+
+.contact-cta-form input:focus {
+  outline: none;
+  border-color: #20316A;
+  /* Highlight border on click */
+}
+
+/* The Tricky Phone Input Layout */
+.phone-group {
+  display: flex;
+  gap: 12px;
+}
+
+.country-code-select {
+  flex: 0 0 90px;
+  /* Absolutely refuses to shrink or grow past 90px */
+}
+
+.country-code-select select {
+  width: 100%;
+  height: 100%;
+  padding: 14px 10px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background-color: var(--white);
+  font-size: 15px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* Dark Submit Button */
+.btn-dark-submit {
+  width: 100%;
+  background-color: #212529;
+  /* Dark charcoal/almost black */
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-dark-submit:hover {
+  background-color: #000000;
+}
+
+/* --- FOOTER SECTION --- */
+.site-footer {
+  background-color: #F9FAFB;
+  /* Slight off-white to distinguish from main content */
+  padding-top: 60px;
+  border-top: 1px solid #E5E7EB;
+}
+
+/* Floating Banner */
+.footer-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 35px 50px;
+  margin-bottom: 70px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.footer-logo {
+  height: 40px;
+  /* Adjust based on your actual logo file */
+}
+
+.footer-banner-text {
+  font-size: 22px;
+  color: var(--text-heading);
+  text-align: right;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.footer-banner-text .text-blue {
+  color: var(--primary-button);
+}
+
+/* Links Grid */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1.2fr 1.5fr;
+  /* Custom widths for perfect balance */
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.footer-col h4 {
+  font-size: 15px;
+  color: var(--text-heading);
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 16px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #6B7280;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-button);
+}
+
+/* Contact Info Column */
+.footer-contact-info {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.footer-contact-info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #6B7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-contact-info svg {
+  color: var(--primary-button);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.footer-contact-info a {
+  color: #6B7280;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-info a:hover {
+  color: var(--primary-button);
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.social-icons a {
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.social-icons a:hover {
+  color: var(--primary-button);
+}
+
+/* Bottom Legal Bar */
+.footer-bottom {
+  border-top: 1px solid #E5E7EB;
+  padding: 24px 0;
+}
+
+.footer-bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-bottom p {
+  color: #9CA3AF;
+  font-size: 13px;
+  margin: 0;
+}
+
+.footer-legal-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal-links a {
+  color: #9CA3AF;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-legal-links a:hover {
+  color: var(--text-heading);
+}
+
+/* --- MODALS & OVERLAY --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  /* The frosted glass effect */
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  /* Start slightly lower for animation */
+  background-color: var(--white);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  z-index: 9999;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Active Classes applied by JavaScript */
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%);
+  /* Pops into place */
+}
+
+/* Modal Inner Styling */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #9CA3AF;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  color: #111827;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-label {
+  display: block;
+  font-size: 13px;
+  color: #6B7280;
+  margin-bottom: 6px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text-main);
+  font-family: var(--font-family);
+  transition: border-color 0.3s ease;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: var(--primary-button);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  /* Pushes buttons to the right */
+  margin-top: 24px;
+}
+
+.btn-light-submit {
+  background-color: #E5E7EB;
+  color: #4B5563;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-light-submit:hover {
+  background-color: #D1D5DB;
+  color: #111827;
+}
+
+/* Reusing the dark submit button, just making it auto-width */
+.inline-submit {
+  width: auto;
+  padding: 10px 24px;
+  margin-top: 0;
+}
+
+/* --- BLUE MODAL SUBMIT BUTTON --- */
+.btn-blue-submit {
+  background-color: var(--primary-button);
+  /* Your brand blue */
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover state for when it IS active */
+.btn-blue-submit:hover:not(:disabled) {
+  background-color: #1a2754;
+  /* Slightly darker blue for hover */
+}
+
+/* THE DISABLED STATE (Faded blue, no clicking) */
+.btn-blue-submit:disabled,
+.btn-dark-submit:disabled {
+  opacity: 0.5;
+  /* Washes out the color */
+  cursor: not-allowed;
+  /* Shows the red circle-slash cursor */
+  transform: none;
+  /* Prevents any hover animations */
+}
+
+/* --- STICKY PRODUCT ACTION BAR --- */
+.sticky-product-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #F9FAFB;
+  /* Light gray background matching Figma */
+  border-bottom: 1px solid #E5E7EB;
+  z-index: 9990;
+  /* High enough to cover everything except Modals */
+
+  /* Hidden by default, slides down smoothly */
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.sticky-product-bar.visible {
+  transform: translateY(0);
+  /* Slides into view */
+}
+
+.sticky-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+}
+
+.sticky-product-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sticky-thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #E5E7EB;
+}
+
+.sticky-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sticky-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-heading);
+  margin: 0 0 4px 0;
+}
+
+.sticky-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-heading);
+}
+
+.sticky-quote-btn {
+  padding: 10px 24px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* --- MOBILE RESPONSIVENESS FOR STICKY BAR --- */
+@media (max-width: 768px) {
+
+  /* Hides the button to save space, just like the Figma screenshot */
+  .sticky-action {
+    display: none;
+  }
+
+  /* Truncates the title so it doesn't wrap and break the bar */
+  .sticky-title {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+    /* Adjust based on your mobile width */
+  }
+
+  .sticky-price {
+    font-size: 14px;
+  }
+
+  .sticky-thumb {
+    width: 40px;
+    height: 40px;
+  }
+}
+/* =========================================
+   CAROUSEL & BROWSER CLIPPING OVERRIDES 
+   Note: !important and isolation: isolate are used here intentionally 
+   to bypass a known Chromium/Webkit hardware-acceleration bug 
+   where child images bleed through border-radius wrappers.
+   ========================================= */
+/* --- MOBILE UI TOGGLES --- */
+.desktop-hide {
+  display: none !important;
+}
+
+/* Trigger the shift at the 800px breakpoint */
+@media (max-width: 800px) {
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .desktop-hide {
+    display: flex !important;
+  }
+
+  /* Morph the grid into a vertical card */
+  .process-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E5E7EB;
+    border-radius: 24px;
+    padding: 24px;
+    background: var(--white);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Style the Step Indicator Pill */
+  .mobile-step-indicator {
+    background-color: var(--primary-button);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 20px;
+    align-self: flex-start;
+    margin-bottom: 20px;
+  }
+
+  /* Rearrange the order: Text -> Image -> Buttons */
+  .process-content {
+    order: 1;
+  }
+
+  .process-image-wrapper {
+    order: 2;
+    margin-top: 24px;
+    height: 250px;
+    /* Smaller image height for mobile */
+  }
+
+  /* Style the Prev/Next Controls */
+  .mobile-carousel-controls {
+    order: 3;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    position: relative;
+  }
+
+  /* The connecting line between buttons */
+  .mobile-carousel-controls::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #E5E7EB;
+    z-index: 1;
+  }
+
+  .nav-btn {
+    background: var(--white);
+    border: 1px solid #E5E7EB;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 13px;
+    color: var(--text-main);
+    z-index: 2;
+    /* Keeps buttons above the line */
+    cursor: pointer;
+  }
+}
+
+/* --- GLOBAL MOBILE RESPONSIVENESS FIXES --- */
+
+@media (max-width: 900px) {
+
+  /* 1. Stack the Product Showcase */
+  .product-showcase {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* Hide the zoom lens on mobile to prevent weird touch interactions */
+  .zoom-lens,
+  .zoom-result {
+    display: none !important;
+  }
+
+  /* 2. Stack the Features Grid */
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 3. Stack the Portfolio Grid */
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 4. Stack the Contact CTA Box */
+  .contact-cta-box {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  /* 5. Stack the Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .footer-banner-text {
+    text-align: center;
+  }
+
+  .footer-bottom-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  /* 6. Stack Process Card Content */
+  .process-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* =========================================
+   THE ULTIMATE CORNER & CAROUSEL OVERRIDE 
+   ========================================= */
+
+.app-card {
+  flex: 0 0 420px !important;
+  height: 420px !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
+}
+
+.app-card img,
+.app-card-overlay {
+  border-radius: 20px !important;
+}
+
+.process-image-wrapper {
+  max-width: 560px !important;
+  aspect-ratio: 16 / 9 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
+}
+
+.process-image-wrapper img {
+  border-radius: 16px !important;
+}
+
+.portfolio-img-wrapper {
+  aspect-ratio: 2 / 1 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  z-index: 1 !important;
+}
+
+.portfolio-img-wrapper img {
+  border-radius: 12px !important;
+}
+
+@media (min-width: 1200px) {
+  .applications-track {
+    margin-left: calc(((100vw - 1200px) / 2) + 20px - 436px) !important;
+  }
+}
+
+/* --- TRAP THE FLYING ARROWS --- */
+.process-image-wrapper {
+  position: relative !important; 
+}
+
+/* --- SMART STICKY HEADER & PRODUCT BAR --- */
+
+.main-header {
+  transition: transform 0.3s ease-in-out !important;
+  z-index: 9995 !important; /* Keeps it above the product bar */
+}
+
+/* Class added by JS when scrolling down */
+.main-header.nav-hidden {
+  transform: translateY(-100%) !important; 
+}
+
+.sticky-product-bar {
+  /* Default State (Scrolling Up): Docks exactly below the ~72px Main Header */
+  top: 72px !important; 
+  z-index: 9994 !important; /* Slides out from BEHIND the main header */
+  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out !important;
+}
+
+/* Class added by JS when scrolling down */
+.sticky-product-bar.bar-top {
+  /* Main header is hidden, so this claims the top spot */
+  top: 0 !important; 
+}
+
+/* Mobile adjustment if your header is slightly thinner on phones */
+@media (max-width: 800px) {
+  .sticky-product-bar { top: 65px !important; }
+}
