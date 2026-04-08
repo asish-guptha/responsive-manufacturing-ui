@@ -2,8 +2,6 @@
 
 A fully responsive, pixel-perfect frontend landing page built from scratch based on strict Figma design specifications. This project demonstrates advanced frontend architecture, fluid CSS grid layouts, and complex DOM manipulation using pure vanilla HTML, CSS, and JavaScript (No frameworks or libraries).
 
-## 🚀 Live Demo
-*(Optional: Insert your live hosting link here, like GitHub Pages or Vercel)*
 
 ## ✨ Key Features
 
